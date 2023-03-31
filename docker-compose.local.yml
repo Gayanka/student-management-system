@@ -17,7 +17,7 @@ services:
       - POSTGRES_DB=${INST_DB_DATABASE}
     volumes:
       - ./gd_db_data:/var/lib/postgresql/data
-    command: -p ${DB_PORT}
+    command: -p ${INST_DB_PORT}
     networks:
       gd-dev-net:
         aliases:
