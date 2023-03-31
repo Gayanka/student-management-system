@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  gd-institute-db:
+    container_name: gd-institute-db
+    build:
+      context: ./db-init
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5433:5433"
+    expose:
+      - 5433
+    environment:
+      - POSTGRES_USER=${INST_DB_USER}
+      - POSTGRES_PASSWORD=${INST_DB_PASSWORD}
+      - POSTGRES_DB=${INST_DB_DATABASE}
+    volumes:
+      - ./gd_db_data:/var/lib/postgresql/data
+    command: -p ${DB_PORT}
+    networks:
+      gd-dev-net:
+        aliases:
+          - 'gd-institute-db'
+volumes:
+  gd_db_data:
+networks:
+  gd-dev-net:
+    driver: bridge
