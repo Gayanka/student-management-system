@@ -17,12 +17,16 @@ public class StudentController {
 
     @PostMapping("/add")
     public String addStudent(@RequestBody Student student) {
+        if (student == null || student.getName().isEmpty()) {
+            throw new RuntimeException("Student cannot be null or Student name cannot be empty!");
+        }
         studentService.saveStudent(student);
         return "New Student is added";
     }
 
     @GetMapping("/getAll")
     public List<Student> getAllStudents() {
+
         return studentService.getAllStudents();
     }
 
